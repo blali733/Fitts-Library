@@ -21,7 +21,29 @@ namespace SharedTypes
         public int TargetsCount;
         public ColorMode Color;
         public DisplayMode DisplayMode;
-        public float MaxTargetScale;
-        public float MinTargetScale;
+        public int MaxTargetScale;
+        public int MinTargetScale;
+    }
+
+    public struct TargetData
+    {
+        public bool PixelOriented;
+        public Color Color;
+        public int XPixelPosition, YPixelPosition;
+        public float XUnitPosition, YUnitPosition;
+        public float UnitSize;
+        public int PixelSize;
+
+        public TargetData(Color color, float xUnitPosition, float yUnitPosition, float unitSize)
+        {
+            PixelOriented = false;
+            Color = color;
+            XPixelPosition = 0;
+            YPixelPosition = 0;
+            XUnitPosition = xUnitPosition;
+            YUnitPosition = yUnitPosition;
+            UnitSize = unitSize;
+            PixelSize = 0;
+        }
     }
 }
