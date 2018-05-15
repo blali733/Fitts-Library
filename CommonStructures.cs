@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct MyNetworkConfig
+namespace SharedTypes
 {
-    public string address;
-    public string port;
-    public MyNetworkConfig(string address, string port)
+    public struct MyNetworkConfig
     {
-        this.address = address;
-        this.port = port;
-    }
-}
+        public string Address;
+        public string Port;
 
-public struct TestCase
-{
-    public int targets;
-    public int 
+        public MyNetworkConfig(string address, string port)
+        {
+            this.Address = address;
+            this.Port = port;
+        }
+    }
+
+    public struct TestCase
+    {
+        public int TargetsCount;
+        public ColorMode Color;
+        public DisplayMode DisplayMode;
+        public float MaxTargetScale;
+        public float MinTargetScale;
+    }
 }
