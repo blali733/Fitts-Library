@@ -12,4 +12,10 @@
         ConstantPixelSize,
         ConstantUnitSize,
     }
+
+    public enum DistanceMode
+    {
+        Random,
+        EqualDistance
+    }
 }

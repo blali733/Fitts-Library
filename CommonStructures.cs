@@ -23,6 +23,7 @@ namespace SharedTypes
         public DisplayMode DisplayMode;
         public int MaxTargetScale;
         public int MinTargetScale;
+        public DistanceMode DistanceMode;
     }
 
     public struct TargetData
@@ -33,8 +34,10 @@ namespace SharedTypes
         public float XUnitPosition, YUnitPosition;
         public float UnitSize;
         public int PixelSize;
+        public Time SpawnTime;
+        public Time DestroyTime;
 
-        public TargetData(Color color, float xUnitPosition, float yUnitPosition, float unitSize)
+        public TargetData(Color color, float xUnitPosition, float yUnitPosition, float unitSize, Time spawnTime)
         {
             PixelOriented = false;
             Color = color;
@@ -44,6 +47,8 @@ namespace SharedTypes
             YUnitPosition = yUnitPosition;
             UnitSize = unitSize;
             PixelSize = 0;
+            SpawnTime = spawnTime;
+            DestroyTime = null;
         }
     }
 }
