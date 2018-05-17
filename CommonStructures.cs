@@ -25,6 +25,7 @@ namespace SharedTypes
         public int MaxTargetScale;
         public int MinTargetScale;
         public DistanceMode DistanceMode;
+        public float Radius;
     }
 
     public struct TargetData
