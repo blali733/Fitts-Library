@@ -26,6 +26,17 @@ namespace SharedTypes
         public int MinTargetScale;
         public DistanceMode DistanceMode;
         public float Radius;
+
+        public TestCase(int targetsCount, ColorMode color, DisplayMode displayMode, int maxTargetScale, int minTargetScale, DistanceMode distanceMode, float radius)
+        {
+            TargetsCount = targetsCount;
+            Color = color;
+            DisplayMode = displayMode;
+            MaxTargetScale = maxTargetScale;
+            MinTargetScale = minTargetScale;
+            DistanceMode = distanceMode;
+            Radius = radius;
+        }
     }
 
     public struct TargetData
