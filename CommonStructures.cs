@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,10 +35,10 @@ namespace SharedTypes
         public float XUnitPosition, YUnitPosition;
         public float UnitSize;
         public int PixelSize;
-        public Time SpawnTime;
-        public Time DestroyTime;
+        public DateTime SpawnTime;
+        public DateTime DestroyTime;
 
-        public TargetData(Color color, float xUnitPosition, float yUnitPosition, float unitSize, Time spawnTime)
+        public TargetData(Color color, float xUnitPosition, float yUnitPosition, float unitSize, DateTime spawnTime)
         {
             PixelOriented = false;
             Color = color;
@@ -48,7 +49,7 @@ namespace SharedTypes
             UnitSize = unitSize;
             PixelSize = 0;
             SpawnTime = spawnTime;
-            DestroyTime = null;
+            DestroyTime = new DateTime();
         }
     }
 }
