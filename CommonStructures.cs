@@ -49,6 +49,7 @@ namespace SharedTypes
         public int PixelSize;
         public DateTime SpawnTime;
         public DateTime DestroyTime;
+        public DateTime Duration;
 
         public TargetData(Color color, float xUnitPosition, float yUnitPosition, float unitSize, DateTime spawnTime)
         {
@@ -62,6 +63,7 @@ namespace SharedTypes
             PixelSize = 0;
             SpawnTime = spawnTime;
             DestroyTime = new DateTime();
+            Duration = new DateTime();
         }
     }
 }
