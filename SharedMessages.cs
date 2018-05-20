@@ -48,9 +48,9 @@ namespace SharedMessages
 
     public class RawTargetDatasMessage : MessageBase
     {
-        public List<TargetData> TargetDatas;
+        public List<List<TargetData>> TargetDatas;
 
-        public RawTargetDatasMessage(List<TargetData> targetDatas)
+        public RawTargetDatasMessage(List<List<TargetData>> targetDatas)
         {
             TargetDatas = targetDatas;
         }
@@ -61,7 +61,7 @@ namespace SharedMessages
         {
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream ms = new MemoryStream(reader.ReadBytesAndSize());
-            TargetDatas = (List<TargetData>)bf.Deserialize(ms);
+            TargetDatas = (List<List<TargetData>>)bf.Deserialize(ms);
             ms.Dispose();
         }
 
@@ -77,9 +77,9 @@ namespace SharedMessages
 
     public class TargetInfosMessage : MessageBase
     {
-        public List<TargetInfo> TargetInfos;
+        public List<List<TargetInfo>> TargetInfos;
 
-        public TargetInfosMessage(List<TargetInfo> targetInfos)
+        public TargetInfosMessage(List<List<TargetInfo>> targetInfos)
         {
             TargetInfos = targetInfos;
         }
@@ -90,7 +90,7 @@ namespace SharedMessages
         {
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream ms = new MemoryStream(reader.ReadBytesAndSize());
-            TargetInfos = (List<TargetInfo>)bf.Deserialize(ms);
+            TargetInfos = (List<List<TargetInfo>>)bf.Deserialize(ms);
             ms.Dispose();
         }
 
