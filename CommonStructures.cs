@@ -17,6 +17,7 @@ namespace SharedTypes
         }
     }
 
+    [Serializable]
     public struct TestCase
     {
         public int TargetsCount;
@@ -39,6 +40,7 @@ namespace SharedTypes
         }
     }
 
+    [Serializable]
     public struct TargetData
     {
         public bool PixelOriented;
@@ -64,6 +66,39 @@ namespace SharedTypes
             SpawnTime = spawnTime;
             DestroyTime = new DateTime();
             Duration = new TimeSpan();
+        }
+    }
+
+    [Serializable]
+    public struct TargetInfo
+    {
+        public float PixelDistance;
+        public float UnitDistance;
+        public float UnitSize;
+        public int PixelSize;
+        public TimeSpan Duration;
+        public Color Color;
+
+        public TargetInfo(float pixelDistance, float unitDistance, float unitSize, int pixelSize, TimeSpan duration, Color color)
+        {
+            PixelDistance = pixelDistance;
+            UnitDistance = unitDistance;
+            UnitSize = unitSize;
+            PixelSize = pixelSize;
+            Duration = duration;
+            Color = color;
+        }
+
+        public TargetInfo(TargetData previousTarget, TargetData currentTarget)
+        {
+            PixelDistance = Helpers.Distance2D(previousTarget.XPixelPosition, previousTarget.YPixelPosition,
+                currentTarget.XPixelPosition, currentTarget.YPixelPosition);
+            UnitDistance = Helpers.Distance2D(previousTarget.XUnitPosition, previousTarget.YUnitPosition,
+                currentTarget.XUnitPosition, currentTarget.YUnitPosition);
+            UnitSize = currentTarget.UnitSize;
+            PixelSize = currentTarget.PixelSize;
+            Duration = currentTarget.Duration;
+            Color = currentTarget.Color;
         }
     }
 }
