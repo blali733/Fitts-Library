@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using SharedTypes;
 using UnityEngine.Networking;
@@ -25,6 +27,23 @@ namespace SharedMessages
         }
 
         public TestCasesMessage() { }
+
+        public override void Deserialize(NetworkReader reader)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(reader.ReadBytesAndSize());
+            TestCases = (List<TestCase>) bf.Deserialize(ms);
+            ms.Dispose();
+        }
+
+        public override void Serialize(NetworkWriter writer)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream();
+            bf.Serialize(ms, TestCases);
+            writer.WriteBytesFull(ms.ToArray());
+            ms.Dispose();
+        }
     }
 
     public class RawTargetDatasMessage : MessageBase
@@ -37,6 +56,23 @@ namespace SharedMessages
         }
 
         public RawTargetDatasMessage() { }
+
+        public override void Deserialize(NetworkReader reader)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(reader.ReadBytesAndSize());
+            TargetDatas = (List<TargetData>)bf.Deserialize(ms);
+            ms.Dispose();
+        }
+
+        public override void Serialize(NetworkWriter writer)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream();
+            bf.Serialize(ms, TargetDatas);
+            writer.WriteBytesFull(ms.ToArray());
+            ms.Dispose();
+        }
     }
 
     public class TargetInfosMessage : MessageBase
@@ -49,6 +85,23 @@ namespace SharedMessages
         }
 
         public TargetInfosMessage() { }
+
+        public override void Deserialize(NetworkReader reader)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(reader.ReadBytesAndSize());
+            TargetInfos = (List<TargetInfo>)bf.Deserialize(ms);
+            ms.Dispose();
+        }
+
+        public override void Serialize(NetworkWriter writer)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream();
+            bf.Serialize(ms, TargetInfos);
+            writer.WriteBytesFull(ms.ToArray());
+            ms.Dispose();
+        }
     }
 
     public struct TargetInfo
