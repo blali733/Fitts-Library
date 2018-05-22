@@ -27,8 +27,9 @@ namespace SharedTypes
         public int MinTargetScale;
         public DistanceMode DistanceMode;
         public float Radius;
+        public string Name;
 
-        public TestCase(int targetsCount, ColorMode color, DisplayMode displayMode, int maxTargetScale, int minTargetScale, DistanceMode distanceMode, float radius)
+        public TestCase(int targetsCount, ColorMode color, DisplayMode displayMode, int maxTargetScale, int minTargetScale, DistanceMode distanceMode, float radius, string name)
         {
             TargetsCount = targetsCount;
             Color = color;
@@ -37,6 +38,7 @@ namespace SharedTypes
             MinTargetScale = minTargetScale;
             DistanceMode = distanceMode;
             Radius = radius;
+            Name = name;
         }
     }
 
