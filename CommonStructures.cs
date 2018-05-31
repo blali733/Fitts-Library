@@ -46,7 +46,7 @@ namespace SharedTypes
     public struct TargetData
     {
         public bool PixelOriented;
-        public Color Color;
+        public SerializableColor Color;
         public int XPixelPosition, YPixelPosition;
         public float XUnitPosition, YUnitPosition;
         public float UnitSize;
@@ -79,7 +79,7 @@ namespace SharedTypes
         public float UnitSize;
         public int PixelSize;
         public TimeSpan Duration;
-        public Color Color;
+        public SerializableColor Color;
 
         public TargetInfo(float pixelDistance, float unitDistance, float unitSize, int pixelSize, TimeSpan duration, Color color)
         {
