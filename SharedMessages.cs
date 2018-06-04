@@ -135,7 +135,7 @@ namespace SharedMessages
         }
     }
 
-    public class Request : MessageBase
+    public class RequestMessage : MessageBase
     {
         public RequestType Type;
 
