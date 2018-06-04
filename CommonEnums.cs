@@ -18,4 +18,9 @@
         Random,
         EqualDistance
     }
+
+    public enum RequestType
+    {
+        UserList,
+    }
 }

@@ -103,4 +103,17 @@ namespace SharedTypes
             Color = currentTarget.Color;
         }
     }
+
+    [Serializable]
+    public struct User
+    {
+        public string Name;
+        public int Code;
+
+        public User(string name, int code)
+        {
+            Name = name;
+            Code = code;
+        }
+    }
 }
