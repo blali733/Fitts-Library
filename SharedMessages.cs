@@ -139,6 +139,11 @@ namespace SharedMessages
     {
         public RequestType Type;
 
+        public RequestMessage(RequestType type)
+        {
+            Type = type;
+        }
+
         public override void Deserialize(NetworkReader reader)
         {
             BinaryFormatter bf = new BinaryFormatter();
