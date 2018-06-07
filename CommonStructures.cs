@@ -105,15 +105,25 @@ namespace SharedTypes
     }
 
     [Serializable]
-    public struct User
+    public class User
     {
         public string Name;
-        public int Code;
 
-        public User(string name, int code)
+        public User() { }
+
+        public User(string name)
         {
             Name = name;
-            Code = code;
         }
+    }
+
+    [Serializable]
+    public class StoredUser: User
+    {
+        public int Code;
+
+
+        public StoredUser() { }
+
     }
 }
