@@ -139,6 +139,8 @@ namespace SharedMessages
     {
         public RequestType Type;
 
+        public RequestMessage() { }
+
         public RequestMessage(RequestType type)
         {
             Type = type;
