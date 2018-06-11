@@ -108,12 +108,14 @@ namespace SharedTypes
     public class User
     {
         public string Name;
+        public string TestGroup;
 
         public User() { }
 
-        public User(string name)
+        public User(string name, string testGroup)
         {
             Name = name;
+            TestGroup = testGroup;
         }
     }
 
@@ -125,7 +127,7 @@ namespace SharedTypes
 
         public StoredUser() { }
 
-        public StoredUser(string name, Questionarie results) : base(name)
+        public StoredUser(string name, Questionarie results) : base(name, "")
         {
             Results = results;
             Code = -1;
