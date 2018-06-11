@@ -51,11 +51,24 @@ namespace SharedMessages
 
     public class RawTargetDatasMessage : MessageBase
     {
-        public List<List<TargetData>> TargetDatas;
-
-        public RawTargetDatasMessage(List<List<TargetData>> targetDatas)
+        [Serializable]
+        public struct Pack
         {
-            TargetDatas = targetDatas;
+            public List<List<TargetData>> TargetDatas;
+            public string User;
+
+            public Pack(List<List<TargetData>> targetDatas, string user)
+            {
+                TargetDatas = targetDatas;
+                User = user;
+            }
+        }
+
+        public Pack Content;
+
+        public RawTargetDatasMessage(List<List<TargetData>> targetDatas, string user)
+        {
+            Content = new Pack(targetDatas, user);
         }
 
         public RawTargetDatasMessage() { }
@@ -64,7 +77,7 @@ namespace SharedMessages
         {
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream ms = new MemoryStream(reader.ReadBytesAndSize());
-            TargetDatas = (List<List<TargetData>>)bf.Deserialize(ms);
+            Content = (Pack)bf.Deserialize(ms);
             ms.Dispose();
         }
 
@@ -72,7 +85,7 @@ namespace SharedMessages
         {
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream ms = new MemoryStream();
-            bf.Serialize(ms, TargetDatas);
+            bf.Serialize(ms, Content);
             writer.WriteBytesFull(ms.ToArray());
             ms.Dispose();
         }
@@ -81,6 +94,7 @@ namespace SharedMessages
     public class TargetInfosMessage : MessageBase
     {
         public List<List<TargetInfo>> TargetInfos;
+        public string user;
 
         public TargetInfosMessage(List<List<TargetInfo>> targetInfos)
         {
