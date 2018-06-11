@@ -93,12 +93,24 @@ namespace SharedMessages
 
     public class TargetInfosMessage : MessageBase
     {
-        public List<List<TargetInfo>> TargetInfos;
-        public string user;
-
-        public TargetInfosMessage(List<List<TargetInfo>> targetInfos)
+        [Serializable]
+        public struct Pack
         {
-            TargetInfos = targetInfos;
+            public List<List<TargetInfo>> TargetInfos;
+            public string User;
+
+            public Pack(List<List<TargetInfo>> targetDatas, string user)
+            {
+                TargetInfos = targetDatas;
+                User = user;
+            }
+        }
+
+        public Pack Content;
+
+        public TargetInfosMessage(List<List<TargetInfo>> targetInfos, string user)
+        {
+            Content = new Pack(targetInfos, user);
         }
 
         public TargetInfosMessage() { }
@@ -107,7 +119,7 @@ namespace SharedMessages
         {
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream ms = new MemoryStream(reader.ReadBytesAndSize());
-            TargetInfos = (List<List<TargetInfo>>)bf.Deserialize(ms);
+            Content = (Pack)bf.Deserialize(ms);
             ms.Dispose();
         }
 
@@ -115,7 +127,7 @@ namespace SharedMessages
         {
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream ms = new MemoryStream();
-            bf.Serialize(ms, TargetInfos);
+            bf.Serialize(ms, Content);
             writer.WriteBytesFull(ms.ToArray());
             ms.Dispose();
         }
