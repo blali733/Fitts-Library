@@ -121,9 +121,37 @@ namespace SharedTypes
     public class StoredUser: User
     {
         public int Code;
-
+        public Questionarie Results;
 
         public StoredUser() { }
 
+        public StoredUser(string name, Questionarie results) : base(name)
+        {
+            Results = results;
+            Code = -1;
+        }
+    }
+
+    [Serializable]
+    public struct Questionarie
+    {
+        public string AgeGroup;
+        public string TouchFrequency;
+        public bool None;
+        public bool Smaller5;
+        public bool Smaller11;
+        public bool Greater11;
+        public string Activities;
+
+        public Questionarie(string ageGroup, string touchFrequency, bool none, bool smaller5, bool smaller11, bool greater11, string activities)
+        {
+            AgeGroup = ageGroup;
+            TouchFrequency = touchFrequency;
+            None = none;
+            Smaller5 = smaller5;
+            Smaller11 = smaller11;
+            Greater11 = greater11;
+            Activities = activities;
+        }
     }
 }

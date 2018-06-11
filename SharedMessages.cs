@@ -17,6 +17,7 @@ namespace SharedMessages
         public static short TargetInfos = MsgType.Highest + 3;
         public static short UserList = MsgType.Highest + 4;
         public static short DataRequest = MsgType.Highest + 5;
+        public static short NewUserData = MsgType.Highest + 6;
     }
 
     public class TestCasesMessage : MessageBase
@@ -159,6 +160,35 @@ namespace SharedMessages
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream ms = new MemoryStream();
             bf.Serialize(ms, Type);
+            writer.WriteBytesFull(ms.ToArray());
+            ms.Dispose();
+        }
+    }
+
+    public class StoredUserMessage : MessageBase
+    {
+        public StoredUser User;
+
+        public StoredUserMessage() { }
+
+        public StoredUserMessage(StoredUser user)
+        {
+            User = user;
+        }
+
+        public override void Deserialize(NetworkReader reader)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(reader.ReadBytesAndSize());
+            User = (StoredUser)bf.Deserialize(ms);
+            ms.Dispose();
+        }
+
+        public override void Serialize(NetworkWriter writer)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream();
+            bf.Serialize(ms, User);
             writer.WriteBytesFull(ms.ToArray());
             ms.Dispose();
         }
