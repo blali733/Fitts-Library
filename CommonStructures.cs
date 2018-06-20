@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 
 namespace SharedTypes
@@ -154,6 +156,41 @@ namespace SharedTypes
             Smaller11 = smaller11;
             Greater11 = greater11;
             Activities = activities;
+        }
+    }
+
+    [Serializable]
+    public class DeviceIdentification
+    {
+        public string DevId;
+        public int Id;
+        public int ScreenHeight;
+        public int ScreenWidth;
+
+        public DeviceIdentification(bool cook)
+        {
+            if (cook)
+            {
+                Id = 0;
+                ScreenHeight = Screen.height;
+                ScreenWidth = Screen.width;
+                DevId = SystemInfo.deviceUniqueIdentifier;
+                if (DevId == SystemInfo.unsupportedIdentifier)
+                {
+                    string temp = SystemInfo.deviceType.ToString();
+                    if (SystemInfo.deviceModel != SystemInfo.unsupportedIdentifier)
+                    {
+                        temp += SystemInfo.deviceModel;
+                    }
+                    if (SystemInfo.deviceName != SystemInfo.unsupportedIdentifier)
+                    {
+                        temp += SystemInfo.deviceName;
+                    }
+                    temp += SystemInfo.graphicsDeviceName;
+                    SHA1 sha = new SHA1CryptoServiceProvider();
+                    DevId = sha.ComputeHash(Encoding.Unicode.GetBytes(temp)).ToString();
+                }
+            }
         }
     }
 }

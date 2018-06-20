@@ -18,6 +18,8 @@ namespace SharedMessages
         public static short UserList = MsgType.Highest + 4;
         public static short DataRequest = MsgType.Highest + 5;
         public static short NewUserData = MsgType.Highest + 6;
+        public static short DeviceData = MsgType.Highest + 7;
+        public static short DeviceId = MsgType.Highest + 8;
     }
 
     public class TestCasesMessage : MessageBase
@@ -215,6 +217,35 @@ namespace SharedMessages
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream ms = new MemoryStream();
             bf.Serialize(ms, User);
+            writer.WriteBytesFull(ms.ToArray());
+            ms.Dispose();
+        }
+    }
+
+    public class DeviceDataMessage : MessageBase
+    {
+        public DeviceIdentification DeviceIdentification;
+
+        public DeviceDataMessage() { }
+
+        public DeviceDataMessage(DeviceIdentification deviceIdentification)
+        {
+            DeviceIdentification = deviceIdentification;
+        }
+
+        public override void Deserialize(NetworkReader reader)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(reader.ReadBytesAndSize());
+            DeviceIdentification = (DeviceIdentification)bf.Deserialize(ms);
+            ms.Dispose();
+        }
+
+        public override void Serialize(NetworkWriter writer)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream();
+            bf.Serialize(ms, DeviceIdentification);
             writer.WriteBytesFull(ms.ToArray());
             ms.Dispose();
         }
