@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Colourful;
+using Colourful.Conversion;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,6 +43,18 @@ namespace SharedTypes
             questionarie.Activities = questionarieWindow.transform.Find("Activities").gameObject.GetComponent<Dropdown>()
                 .options[questionarieWindow.transform.Find("Activities").gameObject.GetComponent<Dropdown>().value].text;
             return questionarie;
+        }
+
+        public static Color Lab2Color(LabColor color)
+        {
+            Color output = new Color();
+            var converter = new ColourfulConverter {WhitePoint = Illuminants.D50};
+            RGBColor rgbColor = converter.ToRGB(color);
+            output.r = (float)rgbColor.R;
+            output.g = (float)rgbColor.G;
+            output.b = (float)rgbColor.B;
+            output.a = 1.0f;
+            return output;
         }
     }
 
