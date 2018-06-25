@@ -48,7 +48,7 @@ namespace SharedTypes
         public static Color Lab2Color(LabColor color)
         {
             Color output = new Color();
-            var converter = new ColourfulConverter {WhitePoint = Illuminants.D50};
+            var converter = new ColourfulConverter {WhitePoint = Illuminants.D50, TargetRGBWorkingSpace = RGBWorkingSpaces.sRGB};
             RGBColor rgbColor = converter.ToRGB(color);
             output.r = (float)rgbColor.R;
             output.g = (float)rgbColor.G;
