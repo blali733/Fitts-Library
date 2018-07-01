@@ -56,6 +56,24 @@ namespace SharedTypes
             output.a = 1.0f;
             return output;
         }
+
+        public static LabColor Color2Lab(Color color)
+        {
+            var converter = new ColourfulConverter { WhitePoint = Illuminants.D50, TargetRGBWorkingSpace = RGBWorkingSpaces.sRGB };
+            RGBColor rgbColor = new RGBColor(color.r, color.g, color.b);
+            LabColor output = converter.ToLab(rgbColor);
+            return output;
+        }
+
+        public static double LabDiff(LabColor c1, LabColor c2)
+        {
+            // https://en.wikipedia.org/wiki/Color_difference#CIE76
+            double dL = c1.L - c2.L;
+            double da = c1.a - c2.a;
+            double db = c1.b - c2.b;
+            double sqareSum = Math.Pow(dL, 2) + Math.Pow(da, 2) + Math.Pow(db, 2);
+            return Math.Sqrt(sqareSum);
+        }
     }
 
     [System.Serializable]

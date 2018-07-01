@@ -56,8 +56,9 @@ namespace SharedTypes
         public DateTime SpawnTime;
         public DateTime DestroyTime;
         public TimeSpan Duration;
+        public double ColorDistance;
 
-        public TargetData(Color color, float xUnitPosition, float yUnitPosition, float unitSize, DateTime spawnTime)
+        public TargetData(Color color, float xUnitPosition, float yUnitPosition, float unitSize, DateTime spawnTime, double colorDistance)
         {
             PixelOriented = false;
             Color = color;
@@ -70,6 +71,7 @@ namespace SharedTypes
             SpawnTime = spawnTime;
             DestroyTime = new DateTime();
             Duration = new TimeSpan();
+            ColorDistance = colorDistance;
         }
     }
 
@@ -82,8 +84,9 @@ namespace SharedTypes
         public int PixelSize;
         public TimeSpan Duration;
         public SerializableColor Color;
+        public double ColorDistance;
 
-        public TargetInfo(float pixelDistance, float unitDistance, float unitSize, int pixelSize, TimeSpan duration, Color color)
+        public TargetInfo(float pixelDistance, float unitDistance, float unitSize, int pixelSize, TimeSpan duration, Color color, double colorDistance)
         {
             PixelDistance = pixelDistance;
             UnitDistance = unitDistance;
@@ -91,9 +94,10 @@ namespace SharedTypes
             PixelSize = pixelSize;
             Duration = duration;
             Color = color;
+            ColorDistance = colorDistance;
         }
 
-        public TargetInfo(TargetData previousTarget, TargetData currentTarget)
+        public TargetInfo(TargetData previousTarget, TargetData currentTarget, double colorDistance)
         {
             PixelDistance = Helpers.Distance2D(previousTarget.XPixelPosition, previousTarget.YPixelPosition,
                 currentTarget.XPixelPosition, currentTarget.YPixelPosition);
@@ -103,6 +107,7 @@ namespace SharedTypes
             PixelSize = currentTarget.PixelSize;
             Duration = currentTarget.Duration;
             Color = currentTarget.Color;
+            ColorDistance = colorDistance;
         }
     }
 
