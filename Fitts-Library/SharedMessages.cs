@@ -19,6 +19,7 @@ namespace FittsLibrary.Messages
         public static short NewUserData = MsgType.Highest + 6;
         public static short DeviceData = MsgType.Highest + 7;
         public static short DeviceId = MsgType.Highest + 8;
+        public static short ColorRanges = MsgType.Highest + 9;
     }
 
     public class TestCasesMessage : MessageBase
@@ -245,6 +246,35 @@ namespace FittsLibrary.Messages
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream ms = new MemoryStream();
             bf.Serialize(ms, DeviceIdentification);
+            writer.WriteBytesFull(ms.ToArray());
+            ms.Dispose();
+        }
+    }
+
+    public class ColorRangesMessage : MessageBase
+    {
+        public List<ColorRange> ColorRangeList;
+
+        public ColorRangesMessage() { }
+
+        public ColorRangesMessage(List<ColorRange> colorRangeList)
+        {
+            ColorRangeList = colorRangeList;
+        }
+
+        public override void Deserialize(NetworkReader reader)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(reader.ReadBytesAndSize());
+            ColorRangeList = (List<ColorRange>)bf.Deserialize(ms);
+            ms.Dispose();
+        }
+
+        public override void Serialize(NetworkWriter writer)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream();
+            bf.Serialize(ms, ColorRangeList);
             writer.WriteBytesFull(ms.ToArray());
             ms.Dispose();
         }

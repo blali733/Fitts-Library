@@ -198,4 +198,29 @@ namespace FittsLibrary
             }
         }
     }
+
+    [Serializable]
+    public class ColorRange
+    {
+        public float Distance;
+        public List<SerializableColor> Colors;
+
+        public ColorRange(float distance, List<SerializableColor> colors)
+        {
+            Distance = distance;
+            Colors = colors;
+        }
+
+        public ColorRange(float distance, List<List<float>> colors)
+        {
+            Distance = distance;
+            Colors = new List<SerializableColor>();
+            foreach (var colorf in colors)
+            {
+                SerializableColor scolor = new SerializableColor();
+                scolor.FromListRGB(colorf);
+                Colors.Add(scolor);
+            }
+        }
+    }
 }

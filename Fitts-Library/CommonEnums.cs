@@ -5,6 +5,7 @@
         StaticRed,
         StaticGreen,
         StaticBlue,
+        Space,
     }
 
     public enum DisplayMode
@@ -22,5 +23,6 @@
     public enum RequestType
     {
         UserList,
+        ColorRanges,
     }
 }

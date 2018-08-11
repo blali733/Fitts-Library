@@ -83,8 +83,18 @@ namespace FittsLibrary
         public float[] ColorStore = new float[4] { 1F, 1F, 1F, 1F };
         public Color Color
         {
-            get { return new Color(ColorStore[0], ColorStore[1], ColorStore[2], ColorStore[3]); }
-            set { ColorStore = new float[4] { value.r, value.g, value.b, value.a }; }
+            get => new Color(ColorStore[0], ColorStore[1], ColorStore[2], ColorStore[3]);
+            set => ColorStore = new float[4] { value.r, value.g, value.b, value.a };
+        }
+
+        public void FromListRGB(List<float> color)
+        {
+            ColorStore = new float[4] {color[0], color[1], color[2], 1F};
+        }
+
+        public void FromListRGBA(List<float> color)
+        {
+            ColorStore = new float[4] { color[0], color[1], color[2], Color[3] };
         }
 
         //makes this class usable as Color, Color normalColor = mySerializableColor;
