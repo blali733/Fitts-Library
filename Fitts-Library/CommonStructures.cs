@@ -180,6 +180,10 @@ namespace FittsLibrary
                 ScreenHeight = Screen.height;
                 ScreenWidth = Screen.width;
                 DevId = SystemInfo.deviceUniqueIdentifier;
+                if (Application.isEditor)
+                {
+                    DevId = $"UnityEditor@{DevId}";
+                }
                 if (DevId == SystemInfo.unsupportedIdentifier)
                 {
                     string temp = SystemInfo.deviceType.ToString();
