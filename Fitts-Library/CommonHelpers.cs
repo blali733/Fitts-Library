@@ -42,6 +42,8 @@ namespace FittsLibrary
             questionarie.Greater11 = questionarieWindow.transform.Find("greater11").gameObject.GetComponent<Toggle>().isOn;
             questionarie.Activities = questionarieWindow.transform.Find("Activities").gameObject.GetComponent<Dropdown>()
                 .options[questionarieWindow.transform.Find("Activities").gameObject.GetComponent<Dropdown>().value].text;
+            questionarie.ColorPerception = questionarieWindow.transform.Find("ColorPerception").gameObject.GetComponent<Dropdown>()
+                .options[questionarieWindow.transform.Find("ColorPerception").gameObject.GetComponent<Dropdown>().value].text;
             return questionarie;
         }
 

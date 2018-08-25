@@ -151,8 +151,9 @@ namespace FittsLibrary
         public bool Smaller11;
         public bool Greater11;
         public string Activities;
+        public string ColorPerception;
 
-        public Questionarie(string ageGroup, string touchFrequency, bool none, bool smaller5, bool smaller11, bool greater11, string activities)
+        public Questionarie(string ageGroup, string touchFrequency, bool none, bool smaller5, bool smaller11, bool greater11, string activities, string colorPerception)
         {
             AgeGroup = ageGroup;
             TouchFrequency = touchFrequency;
@@ -161,6 +162,7 @@ namespace FittsLibrary
             Smaller11 = smaller11;
             Greater11 = greater11;
             Activities = activities;
+            ColorPerception = colorPerception;
         }
     }
 

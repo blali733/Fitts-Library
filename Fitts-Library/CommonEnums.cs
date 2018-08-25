@@ -5,13 +5,13 @@
         StaticRed,
         StaticGreen,
         StaticBlue,
-        Space,
+        Space
     }
 
     public enum DisplayMode
     {
         ConstantPixelSize,
-        ConstantUnitSize,
+        ConstantUnitSize
     }
 
     public enum DistanceMode
@@ -23,6 +23,14 @@
     public enum RequestType
     {
         UserList,
-        ColorRanges,
+        ColorRanges
+    }
+
+    public enum ColorBlindness
+    {
+        None,
+        Partial,
+        Full,
+        Tetrachromat
     }
 }
