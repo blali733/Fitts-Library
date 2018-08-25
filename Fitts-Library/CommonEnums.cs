@@ -17,7 +17,14 @@
     public enum DistanceMode
     {
         Random,
-        EqualDistance
+        EqualDistance,
+        LinRegOptimised
+    }
+
+    public enum TargetMode
+    {
+        Framed,
+        Frameless
     }
 
     public enum RequestType

@@ -30,8 +30,10 @@ namespace FittsLibrary
         public DistanceMode DistanceMode;
         public float Radius;
         public string Name;
-
-        public TestCase(int targetsCount, ColorMode color, DisplayMode displayMode, int maxTargetScale, int minTargetScale, DistanceMode distanceMode, float radius, string name)
+        public TargetMode TargetMode;
+        
+        public TestCase(int targetsCount, ColorMode color, DisplayMode displayMode, int maxTargetScale,
+            int minTargetScale, DistanceMode distanceMode, float radius, string name, TargetMode targetMode)
         {
             TargetsCount = targetsCount;
             Color = color;
@@ -41,6 +43,7 @@ namespace FittsLibrary
             DistanceMode = distanceMode;
             Radius = radius;
             Name = name;
+            TargetMode = targetMode;
         }
     }
 
