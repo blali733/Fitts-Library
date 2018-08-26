@@ -10,6 +10,11 @@ namespace FittsLibrary
 {
     public class Helpers
     {
+        public static double CalculateDifficultyIndex(float targetWidth, float targetDistance)
+        {
+            return Math.Log((2 * targetDistance / targetWidth), 2);
+        }
+        
         public static IEnumerable<float> FloatRange(float min, float max, float step)
         {
             for (int i = 0; i < int.MaxValue; i++)
