@@ -176,34 +176,33 @@ namespace FittsLibrary
         public int Id;
         public int ScreenHeight;
         public int ScreenWidth;
+        public DeviceClass DeviceClass;
 
-        public DeviceIdentification(bool cook)
+        public DeviceIdentification(DeviceClass deviceClass)
         {
-            if (cook)
+            DeviceClass = deviceClass;
+            Id = 0;
+            ScreenHeight = Screen.height;
+            ScreenWidth = Screen.width;
+            DevId = SystemInfo.deviceUniqueIdentifier;
+            if (Application.isEditor)
             {
-                Id = 0;
-                ScreenHeight = Screen.height;
-                ScreenWidth = Screen.width;
-                DevId = SystemInfo.deviceUniqueIdentifier;
-                if (Application.isEditor)
+                DevId = $"UnityEditor@{DevId}";
+            }
+            if (DevId == SystemInfo.unsupportedIdentifier)
+            {
+                string temp = SystemInfo.deviceType.ToString();
+                if (SystemInfo.deviceModel != SystemInfo.unsupportedIdentifier)
                 {
-                    DevId = $"UnityEditor@{DevId}";
+                    temp += SystemInfo.deviceModel;
                 }
-                if (DevId == SystemInfo.unsupportedIdentifier)
+                if (SystemInfo.deviceName != SystemInfo.unsupportedIdentifier)
                 {
-                    string temp = SystemInfo.deviceType.ToString();
-                    if (SystemInfo.deviceModel != SystemInfo.unsupportedIdentifier)
-                    {
-                        temp += SystemInfo.deviceModel;
-                    }
-                    if (SystemInfo.deviceName != SystemInfo.unsupportedIdentifier)
-                    {
-                        temp += SystemInfo.deviceName;
-                    }
-                    temp += SystemInfo.graphicsDeviceName;
-                    SHA1 sha = new SHA1CryptoServiceProvider();
-                    DevId = sha.ComputeHash(Encoding.Unicode.GetBytes(temp)).ToString();
+                    temp += SystemInfo.deviceName;
                 }
+                temp += SystemInfo.graphicsDeviceName;
+                SHA1 sha = new SHA1CryptoServiceProvider();
+                DevId = sha.ComputeHash(Encoding.Unicode.GetBytes(temp)).ToString();
             }
         }
     }

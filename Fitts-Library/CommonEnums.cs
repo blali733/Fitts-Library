@@ -40,4 +40,12 @@
         Full,
         Tetrachromat
     }
+
+    public enum DeviceClass
+    {
+        Phone,
+        Phtablet,
+        Tablet,
+        Screen
+    }
 }
