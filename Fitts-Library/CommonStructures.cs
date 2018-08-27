@@ -132,7 +132,7 @@ namespace FittsLibrary
     [Serializable]
     public class StoredUser: User
     {
-        public int Code;
+        public string Code;
         public Questionarie Results;
 
         public StoredUser() { }
@@ -140,7 +140,7 @@ namespace FittsLibrary
         public StoredUser(string name, Questionarie results) : base(name, "")
         {
             Results = results;
-            Code = -1;
+            Code = "";
         }
     }
 
