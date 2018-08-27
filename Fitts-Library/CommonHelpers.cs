@@ -8,8 +8,13 @@ using UnityEngine.UI;
 
 namespace FittsLibrary
 {
-    public class Helpers
+    public static class Helpers
     {
+        public static int ToInt(this bool value)
+        {
+            return value ? 1 : 0;
+        }
+        
         public static double CalculateDifficultyIndex(float targetWidth, float targetDistance)
         {
             return Math.Log((2 * targetDistance / targetWidth), 2);
