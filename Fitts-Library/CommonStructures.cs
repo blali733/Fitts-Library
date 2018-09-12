@@ -119,25 +119,26 @@ namespace FittsLibrary
     {
         public string Name;
         public string TestGroup;
+        public string Code;
 
         public User() { }
 
-        public User(string name, string testGroup)
+        public User(string name, string testGroup, string code)
         {
             Name = name;
             TestGroup = testGroup;
+            Code = code;
         }
     }
 
     [Serializable]
     public class StoredUser: User
     {
-        public string Code;
         public Questionarie Results;
 
         public StoredUser() { }
 
-        public StoredUser(string name, Questionarie results) : base(name, "")
+        public StoredUser(string name, Questionarie results) : base(name, "", "")
         {
             Results = results;
             Code = "";

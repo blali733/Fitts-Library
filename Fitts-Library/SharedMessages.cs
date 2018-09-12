@@ -20,6 +20,7 @@ namespace FittsLibrary.Messages
         public static short DeviceData = MsgType.Highest + 7;
         public static short DeviceId = MsgType.Highest + 8;
         public static short ColorRanges = MsgType.Highest + 9;
+        public static short UserCode = MsgType.Highest + 10;
     }
 
     public class TestCasesMessage : MessageBase
