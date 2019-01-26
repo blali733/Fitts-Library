@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 using UnityEngine;
 
 namespace FittsLibrary
@@ -20,30 +23,40 @@ namespace FittsLibrary
     }
 
     [Serializable]
-    public struct TestCase
+    public class TargetTestCase
+    {
+        public string Name;
+        public DistanceMode DistanceMode;
+        public TargetMode TargetMode;
+        public DisplayMode DisplayMode;
+
+        public TargetTestCase(string name, DistanceMode distanceMode, TargetMode targetMode, DisplayMode displayMode)
+        {
+            Name = name;
+            DistanceMode = distanceMode;
+            TargetMode = targetMode;
+            DisplayMode = displayMode;
+        }
+    }
+
+    [Serializable]
+    public class TestCase : TargetTestCase
     {
         public int TargetsCount;
         public ColorMode Color;
-        public DisplayMode DisplayMode;
         public int MaxTargetScale;
         public int MinTargetScale;
-        public DistanceMode DistanceMode;
         public float Radius;
-        public string Name;
-        public TargetMode TargetMode;
-        
+
         public TestCase(int targetsCount, ColorMode color, DisplayMode displayMode, int maxTargetScale,
-            int minTargetScale, DistanceMode distanceMode, float radius, string name, TargetMode targetMode)
+            int minTargetScale, DistanceMode distanceMode, float radius, string name, TargetMode targetMode) 
+            : base(name, distanceMode, targetMode, displayMode)
         {
             TargetsCount = targetsCount;
             Color = color;
-            DisplayMode = displayMode;
             MaxTargetScale = maxTargetScale;
             MinTargetScale = minTargetScale;
-            DistanceMode = distanceMode;
             Radius = radius;
-            Name = name;
-            TargetMode = targetMode;
         }
     }
 
@@ -58,10 +71,20 @@ namespace FittsLibrary
         public int PixelSize;
         public DateTime SpawnTime;
         public DateTime DestroyTime;
+        [XmlIgnore]
         public TimeSpan Duration;
+        [Browsable(false)]
+        [XmlElement(DataType="duration", ElementName="Duration")]
+        public string DurationString
+        {
+            get => XmlConvert.ToString(Duration);
+            set => Duration = string.IsNullOrEmpty(value) ?
+                TimeSpan.Zero : XmlConvert.ToTimeSpan(value);
+        }
         public double ColorDistance;
 
-        public TargetData(Color color, float xUnitPosition, float yUnitPosition, float unitSize, DateTime spawnTime, double colorDistance)
+        public TargetData(Color color, float xUnitPosition, float yUnitPosition, float unitSize, DateTime spawnTime,
+            double colorDistance)
         {
             PixelOriented = false;
             Color = color;
@@ -85,11 +108,21 @@ namespace FittsLibrary
         public float UnitDistance;
         public float UnitSize;
         public int PixelSize;
+        [XmlIgnore]
         public TimeSpan Duration;
+        [Browsable(false)]
+        [XmlElement(DataType="duration", ElementName="Duration")]
+        public string DurationString
+        {
+            get => XmlConvert.ToString(Duration);
+            set => Duration = string.IsNullOrEmpty(value) ?
+                TimeSpan.Zero : XmlConvert.ToTimeSpan(value);
+        }
         public SerializableColor Color;
         public double ColorDistance;
 
-        public TargetInfo(float pixelDistance, float unitDistance, float unitSize, int pixelSize, TimeSpan duration, Color color, double colorDistance)
+        public TargetInfo(float pixelDistance, float unitDistance, float unitSize, int pixelSize, TimeSpan duration,
+            Color color, double colorDistance)
         {
             PixelDistance = pixelDistance;
             UnitDistance = unitDistance;
@@ -121,7 +154,9 @@ namespace FittsLibrary
         public string TestGroup;
         public string Code;
 
-        public User() { }
+        public User()
+        {
+        }
 
         public User(string name, string testGroup, string code)
         {
@@ -132,11 +167,13 @@ namespace FittsLibrary
     }
 
     [Serializable]
-    public class StoredUser: User
+    public class StoredUser : User
     {
         public Questionarie Results;
 
-        public StoredUser() { }
+        public StoredUser()
+        {
+        }
 
         public StoredUser(string name, Questionarie results) : base(name, "", "")
         {
@@ -157,7 +194,8 @@ namespace FittsLibrary
         public string Activities;
         public string ColorPerception;
 
-        public Questionarie(string ageGroup, string touchFrequency, bool none, bool smaller5, bool smaller11, bool greater11, string activities, string colorPerception)
+        public Questionarie(string ageGroup, string touchFrequency, bool none, bool smaller5, bool smaller11,
+            bool greater11, string activities, string colorPerception)
         {
             AgeGroup = ageGroup;
             TouchFrequency = touchFrequency;
@@ -190,6 +228,7 @@ namespace FittsLibrary
             {
                 DevId = $"UnityEditor@{DevId}";
             }
+
             if (DevId == SystemInfo.unsupportedIdentifier)
             {
                 string temp = SystemInfo.deviceType.ToString();
@@ -197,14 +236,19 @@ namespace FittsLibrary
                 {
                     temp += SystemInfo.deviceModel;
                 }
+
                 if (SystemInfo.deviceName != SystemInfo.unsupportedIdentifier)
                 {
                     temp += SystemInfo.deviceName;
                 }
+
                 temp += SystemInfo.graphicsDeviceName;
                 SHA1 sha = new SHA1CryptoServiceProvider();
                 DevId = sha.ComputeHash(Encoding.Unicode.GetBytes(temp)).ToString();
+                DevId+=SystemInfo.deviceModel;
             }
+
+            DevId = $"{DevId}_{SystemInfo.deviceModel}";
         }
     }
 
@@ -230,6 +274,67 @@ namespace FittsLibrary
                 scolor.FromListRGB(colorf);
                 Colors.Add(scolor);
             }
+        }
+    }
+
+    [Serializable]
+    public class TargetPoint
+    {
+        public double Duration;
+        public double DifficultyIndex;
+
+        public TargetPoint(double duration, double difficultyIndex)
+        {
+            Duration = duration;
+            DifficultyIndex = difficultyIndex;
+        }
+
+        public TargetPoint()
+        {
+        }
+    }
+
+    [Serializable]
+    public class TargetSet
+    {
+        public double ColourDifference;
+        public double ParameterA;
+        public double ParameterB;
+        public List<TargetPoint> TargetPoints;
+        public TargetTestCase TestCase;
+
+        public TargetSet()
+        {
+            TargetPoints = new List<TargetPoint>();
+        }
+
+        public TargetSet(double colourDifference, double parameterA, double parameterB, List<TargetPoint> targetPoints, TargetTestCase testCase)
+        {
+            ColourDifference = colourDifference;
+            ParameterA = parameterA;
+            ParameterB = parameterB;
+            TargetPoints = targetPoints;
+            TestCase = testCase;
+        }
+    }
+
+    [Serializable]
+    public class UserResultSet
+    {
+        public string UID;
+        public string DID;
+        public List<TargetSet> TargetSets;
+
+        public UserResultSet(string uid, string devId, List<TargetSet> targetSets)
+        {
+            DID = devId;
+            UID = uid;
+            TargetSets = targetSets;
+        }
+
+        public UserResultSet()
+        {
+            TargetSets = new List<TargetSet>();
         }
     }
 }

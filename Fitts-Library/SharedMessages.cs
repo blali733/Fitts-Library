@@ -101,19 +101,21 @@ namespace FittsLibrary.Messages
         {
             public List<List<TargetInfo>> TargetInfos;
             public string User;
+            public string DevId;
 
-            public Pack(List<List<TargetInfo>> targetDatas, string user)
+            public Pack(List<List<TargetInfo>> targetDatas, string user, string devId)
             {
                 TargetInfos = targetDatas;
                 User = user;
+                DevId = devId;
             }
         }
 
         public Pack Content;
 
-        public TargetInfosMessage(List<List<TargetInfo>> targetInfos, string user)
+        public TargetInfosMessage(List<List<TargetInfo>> targetInfos, string user, string devId)
         {
-            Content = new Pack(targetInfos, user);
+            Content = new Pack(targetInfos, user, devId);
         }
 
         public TargetInfosMessage() { }
